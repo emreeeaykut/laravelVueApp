@@ -13,7 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>AdminLTE 3 | Starter</title>
+  <title>Admin Panel</title>
 
   <link rel="stylesheet" type="text/css" href="/css/app.css">
   
@@ -48,7 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="/" class="brand-link">
       <img src="./img/logo.png" alt="Admin Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Admin Panel</span>
@@ -64,6 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="info">
           <a href="#" class="d-block">
             {{ Auth::user()->name }}
+            <p>{{ Auth::user()->type }}</p>
           </a>
         </div>
       </div>
@@ -82,6 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </router-link>
           </li>
 
+          @can('isAdmin')
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-cog green"></i>
@@ -100,6 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
 
+          
           <li class="nav-item">
             <router-link to="/developer" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
@@ -108,6 +111,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          @endcan
 
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
@@ -167,6 +171,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </footer>
 </div>
 <!-- ./wrapper -->
+
+@auth
+<script type="text/javascript">
+    window.user = @json(auth()->user())
+</script>
+@endauth
 
 <script src="/js/app.js"></script>
 
